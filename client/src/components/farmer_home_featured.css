@@ -1,0 +1,50 @@
+.whole_contents {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out columns */
+    margin: 20px; /* Margin around the container */
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    height: 80%;
+    overflow:hidden;
+  }
+  
+  .companies,
+  .in_market {
+    flex: 1; /* Each side column takes up equal space */
+    padding: 20px; /* Add padding inside columns */
+    background-color: #e0f7fa; /* Light blue background */
+    border: 1px solid #00796b; /* Darker blue border */
+    margin: 10px; /* Margin between columns */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    border-radius: 8px; /* Rounded corners */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10%;
+    height: 90%;
+  }
+  
+  .add_to_market {
+    flex: 2; /* Middle column takes up more space */
+    padding: 20px; /* Add padding inside */
+    background-color: #b3e5fc; /* Slightly darker blue background */
+    border: 1px solid #0288d1; /* Dark blue border */
+    margin: 10px; /* Margin around the column */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    border-radius: 8px; /* Rounded corners */
+    overflow-y: auto;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .whole_contents {
+      flex-direction: column; /* Stack columns on smaller screens */
+    }
+  
+    .companies,
+    .in_market,
+    .add_to_market {
+      width: 100%; /* Make all columns full width */
+      margin: 10px 0; /* Margin above and below columns */
+    }
+  }
+  
