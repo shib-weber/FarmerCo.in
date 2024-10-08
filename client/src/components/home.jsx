@@ -1,7 +1,10 @@
+import Navbar from './navbar'
+import Swap from './swap'
 const home = () => {
   return (
     <>
-      <center><h1>Welcome to Farmer`s Portal Client side</h1></center>
+    <Navbar/>
+    <Swap/>
     </>
   )
 }

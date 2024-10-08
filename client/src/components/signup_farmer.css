@@ -1,0 +1,41 @@
+#signupform{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: larger;
+    gap: 4%;
+    transition: transform 0.8s ease;
+}
+#signupform h1 {
+    color:rgb(78, 78, 253)  ;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-large;
+}
+
+.Fname, .Fpassword {
+    color:rgb(27, 27, 206)  ;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+}
+#name, #Fpassword {
+    box-shadow: 0 4px 8px 0 rgb(78, 78, 253) ;
+    outline: none;
+}
+#accc{
+    color: aliceblue;
+    background-color: rgb(94, 94, 252);
+    box-shadow: 0 4px 8px 0 rgb(78, 78, 253) ;
+    height: 10%;
+    width: 50%;
+    border-radius: 2%;
+    transition: transform 0.8s ease;
+}
+
+#accc:hover {
+    background-color: rgb(155, 155, 252);
+    box-shadow: 0 4px 8px 0 rgb(45, 45, 248);
+}

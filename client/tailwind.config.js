@@ -1,4 +1,10 @@
+/** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line no-undef
 module.exports = {
-    content: ['./src/**/*.{vue,js,ts}'],
-    plugins: [require('daisyui')],
-  };
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+  ],
+}
