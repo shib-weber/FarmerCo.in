@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import './signup_buyer.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupBuyer = () => {
     const [Bname, setBname] = useState("");
     const [Bpassword, setBpassword] = useState("");
     const [Bemail, setBemail] = useState("");
+
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
 
     const handleNameChange = (e) => {
         const Buyername = e.target.value;
@@ -22,7 +27,9 @@ const SignupBuyer = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission
+        notifySuccess('Sign Up successful')
         setBname("");
+        notifyError('Test')
     };
 
     return (

@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import './signup_farmer.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupFarmer = () => {
     const [Fname, setFname] = useState("");
     const [Fpassword, setFpassword] = useState("");
+
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
 
     const handleNameChange = (e) => {
         const Farmername = e.target.value;
@@ -17,7 +22,9 @@ const SignupFarmer = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission
+        notifySuccess('Sign Up successful')
         setFname("");
+        notifyError('Test')
     };
 
     return (
