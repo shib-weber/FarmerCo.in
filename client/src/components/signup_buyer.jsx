@@ -63,7 +63,8 @@ const SignupBuyer = () => {
                         required
                     />
                 </div>
-                <button type="submit" id='accc'>Create Account</button> {/* Add a submit button */}
+                <button type="submit" id='accc'>Create Account</button>
+
             </form>
     );
 };

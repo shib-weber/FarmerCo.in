@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SignupFarmer from './signup_farmer'; 
-import SignupBuyer from './signup_buyer'; 
+import LoginFarmer from './login_farmer'; 
+import LoginBuyer from './login_buyer'; 
 import './swap.css';
 
-const Swap = () => {
+const SwapL = () => {
     const [isBuyer, setIsBuyer] = useState(true); // State to determine the current form
     const navigate = useNavigate(); 
 
     const handleLoginClick = ()=>{
-        navigate('/login');
+        navigate('/');
     }
 
     const handleSwitchClick = () => {
@@ -35,15 +35,15 @@ const Swap = () => {
             <div className="formdiv">
                 {isBuyer ? (
                     // Display the buyer's form here (you can create a component for buyers)
-                    <SignupFarmer />
+                    <LoginFarmer />
 
                 ) : (
-                    <SignupBuyer/>
+                    <LoginBuyer/>
                 )}
             </div>
             <div className="for_login">
-                    <p>Already have an Account ?</p>
-                    <button id='for_L' onClick={handleLoginClick}>Login</button>
+                    <p>Don`t have an Account ?</p>
+                    <button id='for_L' onClick={handleLoginClick}>Sign Up</button>
             </div>
             </div>
 
@@ -51,4 +51,4 @@ const Swap = () => {
     );
 };
 
-export default Swap;
+export default SwapL;

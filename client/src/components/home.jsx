@@ -1,10 +1,8 @@
-import Navbar from './navbar'
-import Swap from './swap'
+import Signup from './signup'
 const home = () => {
   return (
     <>
-    <Navbar/>
-    <Swap/>
+      <Signup/>
     </>
   )
 }

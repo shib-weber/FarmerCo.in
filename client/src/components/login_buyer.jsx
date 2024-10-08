@@ -1,55 +1,57 @@
 import { useState } from 'react';
-import './signup_farmer.css'
+import './signup_buyer.css'
 
-const SignupFarmer = () => {
-    const [Fname, setFname] = useState("");
-    const [Fpassword, setFpassword] = useState("");
+const LoginBuyer = () => {
+    const [Bname, setBname] = useState("");
+    const [Bpassword, setBpassword] = useState("");
 
     const handleNameChange = (e) => {
-        const Farmername = e.target.value;
-        setFname(Farmername);
+        const Buyername = e.target.value;
+        setBname(Buyername);
     };
     const handlePasswordChange = (e) => {
-        const Farmerpass = e.target.value;
-        setFpassword(Farmerpass);
+        const Buyerpass = e.target.value;
+        setBpassword(Buyerpass);
     };
 
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission
-        setFname("");
+        setBname("");
     };
 
     return (
 
             <form id='signupform' onSubmit={handleSubmit}>
-            <center><h1>Farmer Sign Up</h1></center>
-                <div className="Fname">
-                    <label htmlFor="name">Name</label>
+            <center><h1>Buyer Login</h1></center>
+                <div className="Bname">
+                    <label htmlFor="name">Company Name Or Email</label>
                     <input 
                         type="text" 
                         name="name" 
                         id="name" 
-                        value={Fname} 
+                        value={Bname} 
                         onChange={handleNameChange}
                         required
                     />
                 </div>
-                <div className="Fpassword">
+
+                <div className="Bpassword">
                     <label htmlFor="password">Password</label>
                     <input 
                         type="password" 
-                        name="Fpassword" 
-                        id="Fpassword" 
+                        name="Bpassword" 
+                        id="Bpassword" 
                         autoComplete="current-password"
-                        value={Fpassword} 
+                        value={Bpassword} 
                         onChange={handlePasswordChange}
                         required
                     />
                 </div>
-                <button type="submit" id='accc'>Create Account</button>
+                <button type="submit" id='accc'>Login</button>
+
             </form>
     );
 };
 
-export default SignupFarmer;
+export default LoginBuyer;

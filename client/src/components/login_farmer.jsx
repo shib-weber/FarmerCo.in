@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './signup_farmer.css'
 
-const SignupFarmer = () => {
+const LoginFarmer = () => {
     const [Fname, setFname] = useState("");
     const [Fpassword, setFpassword] = useState("");
 
@@ -23,7 +23,7 @@ const SignupFarmer = () => {
     return (
 
             <form id='signupform' onSubmit={handleSubmit}>
-            <center><h1>Farmer Sign Up</h1></center>
+            <center><h1>Farmer Login</h1></center>
                 <div className="Fname">
                     <label htmlFor="name">Name</label>
                     <input 
@@ -47,9 +47,9 @@ const SignupFarmer = () => {
                         required
                     />
                 </div>
-                <button type="submit" id='accc'>Create Account</button>
+                <button type="submit" id='accc'>Login</button> 
             </form>
     );
 };
 
-export default SignupFarmer;
+export default LoginFarmer;
