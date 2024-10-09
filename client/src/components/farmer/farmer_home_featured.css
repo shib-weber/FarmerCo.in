@@ -16,22 +16,40 @@
     margin: 10px; /* Margin between columns */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
     border-radius: 8px; /* Rounded corners */
+    overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 10%;
+    text-align: center;
+    gap: 1%;
     height: 90%;
+  }
+  .add_to_market h1{
+    color: white;
+    font-size: xx-large;
+    font-family: 'Courier New', Courier, monospace;
+  }
+    
+  .companies h1, .in_market h1 {
+    color: green;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
   }
   
   .add_to_market {
     flex: 2; /* Middle column takes up more space */
     padding: 20px; /* Add padding inside */
-    background-color: #b3e5fc; /* Slightly darker blue background */
+    background-color: rgb(112, 175, 112); /* Slightly darker blue background */
     border: 1px solid #0288d1; /* Dark blue border */
     margin: 10px; /* Margin around the column */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
     border-radius: 8px; /* Rounded corners */
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+    height: 90%;
   }
   
   /* Responsive design */

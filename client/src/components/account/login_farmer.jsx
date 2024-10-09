@@ -22,6 +22,7 @@ const LoginFarmer = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission
+        
         notifySuccess('Login successful')
         setFname("");
         notifyError('Test')
@@ -30,6 +31,7 @@ const LoginFarmer = () => {
     return (
 
             <form id='signupform' onSubmit={handleSubmit}>
+            {/*<span className="loading loading-infinity loading-lg"></span>*/}
             <center><h1>Farmer Login</h1></center>
                 <div className="Fname">
                     <label htmlFor="name">Name</label>

@@ -1,8 +1,8 @@
 import './App.css'
 import { Route, Routes } from "react-router-dom"
-import SignUp from './components/signup'
-import Login from './components/login'
-import Farmer_Home from './components/farmer_home'
+import SignUp from './components/account/signup'
+import Login from './components/account/login'
+import Farmer_Home from './components/farmer/farmer_home'
 
 function App() {
 
