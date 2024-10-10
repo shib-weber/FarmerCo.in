@@ -97,4 +97,49 @@ color: rgb(78, 78, 253) ;
     align-items: center;
     transition: transform 0.8s ease;
 }
+@media (max-width: 768px) {
+    .sign_container {
+        height: 35%;
+        scale: 0.9;
+        margin-left: 0;
+        width: 100%;
+    }
+    .info{
+        font-size: medium;
+    }
+    #switch{
+        margin-top: 1rem;
+    }
+    #accc{
+        height: 15%;
+        width: 100%;
+    }
+    .whole{
+        width: 80%;
+    }
+    .switch_div{
+        .clear_circle{
+            transform: translateX(185%) ;
+        }
+        .info , #switch {
+            transform: translateX(-150%) ;
+        }
+        .whole{
+            transform: translateX(-34%) ;
+        }
+        .for_login{
+            margin-top: 3%;
+        }
+
+
+    }
+    #for_L {
+        width: 20%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+
+  }
+  
 

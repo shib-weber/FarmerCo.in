@@ -1,8 +1,8 @@
-
+import './footer.css'
 
 const footer = () => {
   return (
-            <footer className="footer bg-neutral text-neutral-content items-center p-4">
+    <footer className="footer bg-violet-900 text-neutral-content items-center p-4 fixed-footer">
         <aside className="grid-flow-col items-center">
             <svg
             width="36"
