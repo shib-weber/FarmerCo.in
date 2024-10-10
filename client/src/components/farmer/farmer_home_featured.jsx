@@ -23,9 +23,9 @@ const farmer_home_featured = () => {
                     </div>
                     <select className="select select-bordered join-item">
                         <option disabled selected>Filter</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
                     </select>
                     <div className="indicator">
                         <button className="btn join-item">Search</button>

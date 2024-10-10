@@ -9,6 +9,7 @@ import Market_items from './components/farmer/market_items'
 import Sold_items from './components/farmer/sold_items'
 import Company from './components/farmer/company'
 import FarmersForum from './components/farmer/farmers_forum'
+import Profile from './components/farmer/profile'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route path='/farmer_home/sold_items' element={<Sold_items/>} />
       <Route path='/farmer_home/companies' element={<Company/>} />
       <Route path='/farmer_home/farmers_forum' element={<FarmersForum/>} />
+      <Route path='/farmer_home/profile' element={<Profile/>} />
     </Routes>
     </>
   )
