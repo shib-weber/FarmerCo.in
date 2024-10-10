@@ -1,26 +1,20 @@
 import Navbar from "./navbar"
 import './farmer_home_featured.css'
 import Card from "./cards"
-import Companies from "./companies"
-import Market_demands from "./market_demands"
+import { useNavigate } from "react-router-dom"
+
 
 const farmer_home_featured = () => {
+    const navigate = useNavigate()
+    const handleAddClick =()=>{
+        navigate('add_item')
+    }
   return (
     <>
     <Navbar/>
     <div className="whole_contents">
-        <div className="companies">
-            <h1>Companies</h1>
-            <Companies/>
-            <Companies/>
-            <Companies/>
-            <Companies/>
-            <Companies/>
-            <Companies/>
-            <Companies/>
-        </div>
         <div className="add_to_market">
-            <h1>Your Item In Market</h1>
+            <h1>Market Demands</h1>
                 <div className="join">
                     <div>
                         <div>
@@ -37,14 +31,12 @@ const farmer_home_featured = () => {
                         <button className="btn join-item">Search</button>
                     </div>
                 </div>
-            <Card/>
-            <Card/>
-        </div>
-        <div className="in_market">
-            <h1>Market Demands</h1>
-            <Market_demands/>
-            <Market_demands/>
-            <Market_demands/>
+                <div className="cards_container">
+                    <Card/>
+                    <Card/>
+                    <Card/>
+                </div>
+                <button id="add_item" onClick={handleAddClick}>+</button>
         </div>
     </div>
     </>
