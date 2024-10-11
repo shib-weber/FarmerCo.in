@@ -20,11 +20,10 @@ const LoginFarmer = () => {
             credentials: 'include',
             body:JSON.stringify({ Fname ,Fpassword }),
         })
-        if (!response.ok) {
-            const result = await response.json();
+        const result = await response.json();
+        if (result.message === 'Incorrect Name or Password') {
             notifyError(result.message);
         } else {
-            const result = await response.json();
             notifySuccess(result.message);
             setTimeout(() => {
                 navigate('/farmer_home'); // After 3 seconds, redirect to home

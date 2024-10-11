@@ -58,7 +58,7 @@ router.post('/signup', async (req, res) => {
             secure: false, 
             maxAge: 24 * 60 * 60 * 1000,
         });
-        res.json('Signup Successful');
+        res.json({message:'Signup Successful'});
     }
 });
 
@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
         password: data.Fpassword,
     });
     if (!user) {
-        return res.json('Incorrect Name or Password');
+        return res.json({message:'Incorrect Name or Password'});
     } else {
         const key = process.env.secret_key || 'hello';
         const token = jwt.sign({ username: user.name, userid: user._id }, key, { expiresIn: '30d' });
@@ -122,5 +122,10 @@ router.get('/checkdetails', TokenVerify,async(req,res)=>{
     }
 })
 
+router.get('/fulldetails', TokenVerify,async(req,res)=>{
+    const userId = req.user.userid; 
+    const user = await Farmer.findOne({_id:userId})
+    res.json(user)
+})
 
 module.exports = router;

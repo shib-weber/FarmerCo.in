@@ -1,19 +1,58 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from "./navbar";
 import './profile.css';
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState({
+
+  let initials = {    
     name: "John Doe",
     state: "California",
     localPanchayat: "Local Panchayat",
     address: "123 Main St",
-    pin: "123456",
-    contactNumber: "9876543210",
-    idProof: "Voter ID - 1234 5678 9012",
-    areaForCultivation: "10 acres",
+    pin: 123456,
+    contactNumber: 9876543210,
+    idProof: 123456789012,
+    areaForCultivation: 10,
     majorCrop: "Wheat"
-  });
+  };
+
+  const [profileData, setProfileData] = useState(initials);
+
+  useEffect(() => {
+    const fulldetails = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/farmer/fulldetails', {
+          method: 'GET',
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log(result);
+
+          const updatedDetails = {
+            name: result.name,
+            state: result.state,
+            localPanchayat: result.localP,
+            address: result.address,
+            pin: result.pin,
+            contactNumber: result.phone,
+            idProof: result.idp,
+            areaForCultivation: result.land,
+            majorCrop: result.mjc
+          };
+
+          setProfileData(updatedDetails);
+        } else {
+          console.error('Error fetching full details');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fulldetails(); // Call the function here
+  }, []);
 
   const [editField, setEditField] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
