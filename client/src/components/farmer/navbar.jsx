@@ -29,6 +29,17 @@ export default function Navbar(){
     const handleProfile =()=>{
         navigate('/farmer_home/profile')
     }
+    const handleLogOut=async()=>{
+        const response = await fetch('http://localhost:4000/api/farmer/logout',{
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        const result =await response.json()
+        if (result === 'loggedOut'){
+            navigate('/login')
+        }
+    }
 
     return(
         <div className="navbar bg-green-700 h-20 fixed-navbar" >
@@ -93,7 +104,7 @@ export default function Navbar(){
                 </a>
                 </li>
                 <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li onClick={handleLogOut}><a>Logout</a></li>
             </ul>
             </div>
         </div>

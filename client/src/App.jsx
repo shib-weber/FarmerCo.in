@@ -10,6 +10,7 @@ import Sold_items from './components/farmer/sold_items'
 import Company from './components/farmer/company'
 import FarmersForum from './components/farmer/farmers_forum'
 import Profile from './components/farmer/profile'
+import ProtectedRoute from './protected_routes'
 
 function App() {
 
@@ -18,14 +19,14 @@ function App() {
     <Routes>
       <Route path='/' element={<SignUp/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/farmer_home' element={<Farmer_Home/>} />
-      <Route path='/farmer_home/add_item' element={<Add_to_market_form/>} />
-      <Route path='/farmer_home/offered_items' element={<Offered_items/>} />
-      <Route path='/farmer_home/market_items' element={<Market_items/>} />
-      <Route path='/farmer_home/sold_items' element={<Sold_items/>} />
-      <Route path='/farmer_home/companies' element={<Company/>} />
-      <Route path='/farmer_home/farmers_forum' element={<FarmersForum/>} />
-      <Route path='/farmer_home/profile' element={<Profile/>} />
+      <Route path='/farmer_home' element={<ProtectedRoute><Farmer_Home /></ProtectedRoute>} />
+      <Route path='/farmer_home/add_item' element={<ProtectedRoute><Add_to_market_form /></ProtectedRoute>} />
+      <Route path='/farmer_home/offered_items' element={<ProtectedRoute><Offered_items /></ProtectedRoute>} />
+      <Route path='/farmer_home/market_items' element={<ProtectedRoute><Market_items /></ProtectedRoute>} />
+      <Route path='/farmer_home/sold_items' element={<ProtectedRoute><Sold_items /></ProtectedRoute>} />
+      <Route path='/farmer_home/companies' element={<ProtectedRoute><Company /></ProtectedRoute>} />
+      <Route path='/farmer_home/farmers_forum' element={<ProtectedRoute><FarmersForum /></ProtectedRoute>} />
+      <Route path='/farmer_home/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     </Routes>
     </>
   )

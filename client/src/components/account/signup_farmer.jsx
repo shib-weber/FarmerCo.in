@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, } from 'react';
 import './signup_farmer.css'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignupFarmer = () => {
+    const navigate = useNavigate()
+
     const [Fname, setFname] = useState("");
     const [Fpassword, setFpassword] = useState("");
 
@@ -20,11 +23,24 @@ const SignupFarmer = () => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault(); // Prevent default form submission
-        notifySuccess('Sign Up successful')
+        const response = await fetch('http://localhost:4000/api/farmer/signup',{
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body:JSON.stringify({ Fname ,Fpassword }),
+        })
+        if (!response.ok) {
+            const result = await response.json();
+            notifyError(result);
+        } else {
+            const result = await response.json();
+            notifySuccess(result);
+            navigate('/farmer_home')
+        }
         setFname("");
-        notifyError('Test')
+        setFpassword("")
     };
 
     return (
