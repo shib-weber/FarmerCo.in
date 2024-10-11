@@ -22,11 +22,13 @@ const LoginFarmer = () => {
         })
         if (!response.ok) {
             const result = await response.json();
-            notifyError(result);
+            notifyError(result.message);
         } else {
             const result = await response.json();
-            notifySuccess(result);
-            navigate('/farmer_home')
+            notifySuccess(result.message);
+            setTimeout(() => {
+                navigate('/farmer_home'); // After 3 seconds, redirect to home
+            }, 3000);
         }
         setFname("");
         setFpassword("")

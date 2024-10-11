@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react'
 import './farmer_basic_form.css'
+import {useNavigate} from 'react-router-dom'
 
 const farmer_basic_details = () => {
+    const navigate= useNavigate()
     const initial={
         state:'',
         localP:'',
@@ -10,7 +13,8 @@ const farmer_basic_details = () => {
         phone:0,
         idp:0,
         land:0,
-        mjs:''
+        mjs:'',
+        credentials:false
     }
     const [formdata, setformdata] = useState(initial);
     const handleChange =(e)=>{
@@ -21,9 +25,27 @@ const farmer_basic_details = () => {
         });
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault()
-        console.log(formdata)
+        const updatedFormData = { ...formdata, credentials: true };
+        const response = await fetch(`http://localhost:4000/api/farmer/basicdetails`,{
+            method:'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body:JSON.stringify({ updatedFormData }),
+        })
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Update successful:', data);
+            navigate('/farmer_home/profile')
+            setTimeout(() => {
+                navigate('/farmer_home'); // After 3 seconds, redirect to home
+            }, 3000);
+            
+        } else {
+            const errorData = await response.json();
+            console.error('Error updating:', errorData);
+        }
     }
 
   return (

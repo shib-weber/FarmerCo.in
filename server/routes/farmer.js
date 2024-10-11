@@ -88,4 +88,39 @@ router.post('/logout',(req,res)=>{
     res.json('loggedOut')
 })
 
+router.patch('/basicdetails', TokenVerify, async (req, res) => {
+    try {
+        const userId = req.user.userid; // Get the user's ID from the verified token
+        const { updatedFormData } = req.body; // Get the updated form data
+
+        // Update the farmer's details in the database
+        const updatedFarmer = await Farmer.findByIdAndUpdate(userId, updatedFormData, {
+            new: true, // Return the updated document
+            runValidators: true, // Validate fields against the schema
+        });
+
+        // Check if the farmer was found and updated
+        if (!updatedFarmer) {
+            return res.status(404).json({ message: 'Farmer not found' });
+        }
+
+        return res.status(200).json({ message: 'Farmer details updated successfully', updatedFarmer });
+    } catch (error) {
+        console.error('Error updating farmer details:', error);
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+});
+
+router.get('/checkdetails', TokenVerify,async(req,res)=>{
+    const userId = req.user.userid; 
+    const user = await Farmer.findOne({_id:userId})
+    if(user.credentials === true){
+        res.json('yes')
+    }
+    else{
+        res.json('no')
+    }
+})
+
+
 module.exports = router;

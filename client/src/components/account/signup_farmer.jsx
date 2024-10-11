@@ -37,7 +37,9 @@ const SignupFarmer = () => {
         } else {
             const result = await response.json();
             notifySuccess(result);
-            navigate('/farmer_home')
+            setTimeout(() => {
+                navigate('/farmer_home'); // After 3 seconds, redirect to home
+            }, 3000);
         }
         setFname("");
         setFpassword("")
