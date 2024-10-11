@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import './add_to_market_form.css';
 import Navbar from './navbar';
+import { useNavigate } from 'react-router-dom';
+
 
 const AddToMarketForm = () => {
+
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    cropName: '',
-    amount: '',
-    pricePerKg: '',
-    rating: '',
-    totalAmount: '',
+    crop: '',
+    weight: '',
+    sp: '',
+    rate: '',
+    description:'',
   });
   
   const [photos, setPhotos] = useState([]);
@@ -35,20 +39,41 @@ const AddToMarketForm = () => {
     setPhotos(updatedPhotos);
   };
 
+  const handleSubmit=async(e)=>{
+    e.preventDefault()
+    const response = await fetch('http://localhost:4000/api/farmer/market',{
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body:JSON.stringify(formData),
+    })
+    const data = await response.json();
+    if (data === 'Added To Market') {
+        
+        setTimeout(() => {
+            navigate('/farmer_home/market_items'); // After 1 seconds, redirect to home
+        }, 1000);
+        
+    } else {
+        const errorData = await response.json();
+        console.error('Error updating:', errorData);
+    }
+}
+
   return (
     <>
       <Navbar />
       <div className="form-container">
         <div className="form-section">
           <center><h1>Add Item to Market</h1></center>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="cropName">Crop Name</label>
               <input
                 type="text"
                 id="cropName"
-                name="cropName"
-                value={formData.cropName}
+                name="crop"
+                value={formData.crop}
                 onChange={handleInputChange}
                 placeholder="Enter Crop Name"
                 className="input-field"
@@ -61,10 +86,10 @@ const AddToMarketForm = () => {
               <input
                 type="number"
                 id="amount"
-                name="amount"
-                value={formData.amount}
+                name="weight"
+                value={formData.weight}
                 onChange={handleInputChange}
-                placeholder="Enter Amount"
+                placeholder="Enter Amount in Kg"
                 className="input-field"
                 required
               />
@@ -75,8 +100,8 @@ const AddToMarketForm = () => {
               <input
                 type="number"
                 id="pricePerKg"
-                name="pricePerKg"
-                value={formData.pricePerKg}
+                name="sp"
+                value={formData.sp}
                 onChange={handleInputChange}
                 placeholder="Enter Price per Kg"
                 className="input-field"
@@ -89,8 +114,8 @@ const AddToMarketForm = () => {
               <input
                 type="number"
                 id="rating"
-                name="rating"
-                value={formData.rating}
+                name="rate"
+                value={formData.rate}
                 onChange={handleInputChange}
                 placeholder="Enter Rating (1-5)"
                 className="input-field"
@@ -102,14 +127,14 @@ const AddToMarketForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="totalAmount">Total Amount</label>
+              <label htmlFor="total">Description</label>
               <input
-                type="number"
+                type="text"
                 id="totalAmount"
-                name="totalAmount"
-                value={formData.totalAmount}
+                name="description"
+                value={formData.total}
                 onChange={handleInputChange}
-                placeholder="Enter Total Amount"
+                placeholder="Enter Description"
                 className="input-field"
                 required
               />

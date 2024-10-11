@@ -18,6 +18,39 @@ const Profile = () => {
 
   const [profileData, setProfileData] = useState(initials);
 
+  const handleProfilePictureChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file); // file is the actual file object
+      
+        // Log FormData contents
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+        try {
+            const response = await fetch('http://localhost:4000/api/farmer/uploadPP', {
+                method: 'POST',
+                credentials: 'include', // To include the token for authentication
+                body: formData
+            });
+            
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Profile picture uploaded:', result.url);
+                setProfilePicture(result.url); // Update the state with the uploaded image URL
+            } else {
+                console.error('Error uploading profile picture');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+};
+
+
+
   useEffect(() => {
     const fulldetails = async () => {
       try {
@@ -43,6 +76,7 @@ const Profile = () => {
           };
 
           setProfileData(updatedDetails);
+          setProfilePicture(result.profilepic)
         } else {
           console.error('Error fetching full details');
         }
@@ -61,10 +95,27 @@ const Profile = () => {
     setEditField(field);
   };
 
-  const handleSaveClick = () => {
-    setEditField(null);
-    // Save profileData to the backend or local storage
-    alert('Profile data saved!');
+  const handleSaveClick = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/farmer/basicdetails', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ updatedFormData: profileData }), // Send the updated profile data
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result.message);
+        alert('Profile data saved successfully!');
+        setEditField(null); // Exit edit mode
+      } else {
+        const errorData = await response.json();
+        console.error('Error updating:', errorData);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -72,16 +123,6 @@ const Profile = () => {
     setProfileData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePicture(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleRemoveProfilePicture = () => {
     setProfilePicture(null);
@@ -99,7 +140,8 @@ const Profile = () => {
             </>
           ) : (
             <div>
-              <input type="file" onChange={handleProfilePictureChange} className="upload-btn" />
+              <input type="file" accept="image/*" onChange={handleProfilePictureChange} className="upload-btn" />
+
             </div>
           )}
         </div>

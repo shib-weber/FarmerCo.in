@@ -100,7 +100,7 @@ export default function Navbar(){
                 <li onClick={handleProfile}>
                 <a className="justify-between">
                     Profile
-                    <span className="badge">New</span>
+                    <span className="badge bg-green-900 text-white">New</span>
                 </a>
                 </li>
                 <li><a>Settings</a></li>
