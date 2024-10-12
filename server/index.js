@@ -1,5 +1,6 @@
 const express= require('express')
 const Farmer_routes=require('./routes/farmer');
+const Buyer_routes = require('./routes/buyer')
 const mongoose= require('mongoose')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/farmer',Farmer_routes)
+app.use('/api/buyer',Buyer_routes)
 
 mongoose.connect('mongodb://127.0.0.1:27017/FarmerCo').then(res=>{console.log('MongoDb Connected')})
 

@@ -2,8 +2,12 @@ import { useState } from 'react';
 import './signup_buyer.css'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const SignupBuyer = () => {
+
+    const navigate= useNavigate()
     const [Bname, setBname] = useState("");
     const [Bpassword, setBpassword] = useState("");
     const [Bemail, setBemail] = useState("");
@@ -25,11 +29,26 @@ const SignupBuyer = () => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault(); // Prevent default form submission
-        notifySuccess('Sign Up successful')
+        const response = await fetch('http://localhost:4000/api/buyer/signup',{
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body:JSON.stringify({ Bname ,Bemail,Bpassword }),
+        })
+        const result = await response.json();
+        if (result.message === 'Incorrect Name or Password') {
+            notifyError(result.message);
+        } else {
+            notifySuccess(result.message);
+            setTimeout(() => {
+                navigate('/buyer_home'); // After 3 seconds, redirect to home
+            }, 3000);
+        }
         setBname("");
-        notifyError('Test')
+        setBpassword("")
+        setBemail("")
     };
 
     return (

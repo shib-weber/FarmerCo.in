@@ -9,7 +9,7 @@ const login = () => {
   useEffect(() => {
     // Check if the user is authenticated by calling the backend /istoken
     const checkAuth = async () => {
-      const response = await fetch('http://localhost:4000/api/farmer/istoken', 
+      const response = await fetch('http://localhost:4000/api/buyer/istoken', 
         {
           method: 'GET',
           credentials: 'include', // Ensure cookies are sent along with the request
@@ -17,8 +17,20 @@ const login = () => {
       const data = await response.json();
       console.log(data)
       if (data === 'Yes') {
-        navigate('/farmer_home')
+        navigate('/buyer_home')
       } 
+      else{
+        const response = await fetch('http://localhost:4000/api/farmer/istoken', 
+          {
+            method: 'GET',
+            credentials: 'include', // Ensure cookies are sent along with the request
+        });
+        const data = await response.json();
+        console.log(data)
+        if (data === 'Yes') {
+          navigate('/farmer_home')
+        } 
+      }
     };
 
     checkAuth();

@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Farmer = require('../models/farmer');
-const MarketF = require('../models/market_farmer')
+const Buyer = require('../models/buyer');
+const MarketB = require('../models/market_buyer')
+const MarketF= require('../models/market_farmer')
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -24,7 +25,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/', (req, res) => {
-    res.send("Welcome to Farmer's Portal");
+    res.send("Welcome to Buyer's Portal");
 });
 
 // Token verification middleware
@@ -34,7 +35,7 @@ function TokenVerify(req, res, next) {
         return res.json('No'); // No token, user not authenticated
     }
 
-    const key = process.env.secret_key || 'farmer';
+    const key = process.env.secret_key || 'buyer';
     jwt.verify(token, key, (err, decoded) => {
         if (err) {
             return res.json('No'); // Invalid token
@@ -52,12 +53,13 @@ router.get('/istoken', TokenVerify, (req, res) => {
 // Signup
 router.post('/signup', async (req, res) => {
     const data = req.body;
-    const response = await Farmer.create({
-        name: data.Fname,
-        password: data.Fpassword,
+    const response = await Buyer.create({
+        name: data.Bname,
+        email:data.Bemail,
+        password: data.Bpassword,
     });
     if (response) {
-        const key = process.env.secret_key || 'farmer';
+        const key = process.env.secret_key || 'buyer';
         const token = jwt.sign({ username: response.name, userid: response._id }, key, { expiresIn: '30d' });
         res.cookie('token', token, {
             httpOnly: true,
@@ -71,14 +73,14 @@ router.post('/signup', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
     const data = req.body;
-    const user = await Farmer.findOne({
-        name: data.Fname,
-        password: data.Fpassword,
+    const user = await Buyer.findOne({
+        email: data.Bname,
+        password: data.Bpassword,
     });
     if (!user) {
         return res.json({message:'Incorrect Name or Password'});
     } else {
-        const key = process.env.secret_key || 'farmer';
+        const key = process.env.secret_key || 'buyer';
         const token = jwt.sign({ username: user.name, userid: user._id }, key, { expiresIn: '30d' });
         res.cookie('token', token, {
             httpOnly: true,
@@ -94,32 +96,49 @@ router.post('/logout',(req,res)=>{
     res.json('loggedOut')
 })
 
+
+router.get('/marketproduct', async (req, res) => {
+    try {
+        const products = await MarketF.find({});
+        
+        if (products.length > 0) {
+            return res.json(products);
+        } else {
+            return res.status(200).json({ message: 'No products available in the market', products: [] });
+        }
+    } catch (error) {
+        console.error("Error fetching market products:", error);
+        return res.status(500).json({ message: 'Server error, please try again later' });
+    }
+});
+
+
 router.patch('/basicdetails', TokenVerify, async (req, res) => {
     try {
         const userId = req.user.userid; // Get the user's ID from the verified token
         const { updatedFormData } = req.body; // Get the updated form data
 
-        // Update the farmer's details in the database
-        const updatedFarmer = await Farmer.findByIdAndUpdate(userId, updatedFormData, {
+        // Update the buyer's details in the database
+        const updatedBuyer = await Buyer.findByIdAndUpdate(userId, updatedFormData, {
             new: true, // Return the updated document
             runValidators: true, // Validate fields against the schema
         });
 
-        // Check if the farmer was found and updated
-        if (!updatedFarmer) {
-            return res.status(404).json({ message: 'Farmer not found' });
+        // Check if the buyer was found and updated
+        if (!updatedBuyer) {
+            return res.status(404).json({ message: 'Buyer not found' });
         }
 
-        return res.status(200).json({ message: 'Farmer details updated successfully', updatedFarmer });
+        return res.status(200).json({ message: 'Buyer details updated successfully', updatedBuyer });
     } catch (error) {
-        console.error('Error updating farmer details:', error);
+        console.error('Error updating buyer details:', error);
         return res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
 
 router.get('/checkdetails', TokenVerify,async(req,res)=>{
     const userId = req.user.userid; 
-    const user = await Farmer.findOne({_id:userId})
+    const user = await Buyer.findOne({_id:userId})
     if(user.credentials === true){
         res.json('yes')
     }
@@ -130,7 +149,7 @@ router.get('/checkdetails', TokenVerify,async(req,res)=>{
 
 router.get('/fulldetails', TokenVerify,async(req,res)=>{
     const userId = req.user.userid; 
-    const user = await Farmer.findOne({_id:userId})
+    const user = await Buyer.findOne({_id:userId})
     res.json(user)
 })
 
@@ -190,12 +209,12 @@ router.post('/uploadPP', TokenVerify, (req, res) => {
 
         try {
             // TokenVerify middleware attaches user data to req.user
-            const farmerId = req.user?.userid;  // Added optional chaining to prevent undefined error
-            if (!farmerId) {
+            const buyerId = req.user?.userid;  // Added optional chaining to prevent undefined error
+            if (!buyerId) {
                 return res.status(401).json({ message: 'Unauthorized access' });
             }
 
-            console.log('Farmer ID:', farmerId);
+            console.log('Buyer ID:', buyerId);
 
             // Log request body and file
             console.log('Request Body:', req.body);
@@ -210,9 +229,9 @@ router.post('/uploadPP', TokenVerify, (req, res) => {
             const url = `/uploads/${filename}`; // Adjust based on your file serving setup
             console.log('File URL:', url);
 
-            // Update farmer's profile picture in the database
-            const farmer = await Farmer.findByIdAndUpdate(
-                farmerId,
+            // Update buyer's profile picture in the database
+            const buyer = await Buyer.findByIdAndUpdate(
+                buyerId,
                 { profilepic: url }, // Updating the profile picture URL
                 {
                     new: true,         // Return the updated document
@@ -220,8 +239,8 @@ router.post('/uploadPP', TokenVerify, (req, res) => {
                 }
             );
 
-            if (!farmer) {
-                return res.status(404).json({ message: 'Farmer not found' });
+            if (!buyer) {
+                return res.status(404).json({ message: 'Buyer not found' });
             }
 
             console.log('Profile updated successfully');
@@ -257,10 +276,10 @@ router.get('/uploads/:filename', (req, res) => {
 
 router.post('/market',TokenVerify,async(req,res)=>{
     const {crop,weight,sp,rate,description} = req.body
-    const FarmerId=req.user.userid
+    const BuyerId=req.user.userid
     const name=req.user.username
-    const response = await MarketF.create({
-        FarmerId,
+    const response = await MarketB.create({
+        BuyerId,
         name,
         crop,
         weight,
@@ -278,8 +297,8 @@ router.post('/market',TokenVerify,async(req,res)=>{
 
 router.get('/getitems', TokenVerify,async (req, res) => {
     try {
-        const itemlist = await MarketF.find({});
-        const items = itemlist.filter(item => item.FarmerId === req.user.userid);
+        const itemlist = await MarketB.find({});
+        const items = itemlist.filter(item => item.BuyerId === req.user.userid);
         if (items.length > 0) {
             res.status(200).json(items);  // Return the array of items
         } else {
@@ -294,7 +313,7 @@ router.delete('/deleteitem/:id', async (req, res) => {
     try {
       const itemId = req.params.id;
       
-      const deletedItem = await MarketF.findByIdAndDelete(itemId);
+      const deletedItem = await MarketB.findByIdAndDelete(itemId);
   
       if (deletedItem) {
         res.status(200).json('deleted');
