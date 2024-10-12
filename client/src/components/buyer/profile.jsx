@@ -6,14 +6,13 @@ const Profile = () => {
 
   let initials = {    
     name: "John Doe",
+    email:"",
     state: "California",
-    localPanchayat: "Local Panchayat",
     address: "123 Main St",
     pin: 123456,
     contactNumber: 9876543210,
-    idProof: 123456789012,
-    areaForCultivation: 10,
-    majorCrop: "Wheat"
+    LicenseNumber: 123456789012,
+    majorCropDemand: "Wheat"
   };
 
   const [profileData, setProfileData] = useState(initials);
@@ -29,7 +28,7 @@ const Profile = () => {
             console.log(key, value);
         }
         try {
-            const response = await fetch('http://localhost:4000/api/farmer/uploadPP', {
+            const response = await fetch('http://localhost:4000/api/buyer/uploadPP', {
                 method: 'POST',
                 credentials: 'include', // To include the token for authentication
                 body: formData
@@ -54,25 +53,24 @@ const Profile = () => {
   useEffect(() => {
     const fulldetails = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/farmer/fulldetails', {
+        const response = await fetch('http://localhost:4000/api/buyer/fulldetails', {
           method: 'GET',
           credentials: 'include'
         });
         
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
+          
 
           const updatedDetails = {
             name: result.name,
+            email:result.email,
             state: result.state,
-            localPanchayat: result.localP,
             address: result.address,
             pin: result.pin,
-            contactNumber: result.phone,
-            idProof: result.idp,
-            areaForCultivation: result.land,
-            majorCrop: result.mjc
+            phone: result.phone,
+            yto: result.yto,
+            mjc: result.mjc
           };
 
           setProfileData(updatedDetails);
@@ -97,7 +95,7 @@ const Profile = () => {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/farmer/basicdetails', {
+      const response = await fetch('http://localhost:4000/api/buyer/basicdetails', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

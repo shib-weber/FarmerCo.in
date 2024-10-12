@@ -117,6 +117,7 @@ router.patch('/basicdetails', TokenVerify, async (req, res) => {
     try {
         const userId = req.user.userid; // Get the user's ID from the verified token
         const { updatedFormData } = req.body; // Get the updated form data
+        
 
         // Update the buyer's details in the database
         const updatedBuyer = await Buyer.findByIdAndUpdate(userId, updatedFormData, {
@@ -275,7 +276,7 @@ router.get('/uploads/:filename', (req, res) => {
 //Marketing
 
 router.post('/market',TokenVerify,async(req,res)=>{
-    const {crop,weight,sp,rate,description} = req.body
+    const {crop,weight,cp,rate,description} = req.body
     const BuyerId=req.user.userid
     const name=req.user.username
     const response = await MarketB.create({
@@ -283,7 +284,7 @@ router.post('/market',TokenVerify,async(req,res)=>{
         name,
         crop,
         weight,
-        sp,
+        cp,
         rate,
         description
     })

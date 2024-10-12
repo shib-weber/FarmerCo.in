@@ -5,7 +5,7 @@ const Market_BSchema = mongoose.Schema({
     name:{type:String, required:true},
     crop:{type:String,required:true},
     weight:{type:Number,required:true},
-    sp:{type:Number,required:true},
+    cp:{type:Number,required:true},
     rate:{type:Number,required:true},
     description:{type:String,required:true}
 })

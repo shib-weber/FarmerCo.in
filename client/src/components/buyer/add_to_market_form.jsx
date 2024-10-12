@@ -10,12 +10,12 @@ const AddToMarketForm = () => {
   const [formData, setFormData] = useState({
     crop: '',
     weight: '',
-    sp: '',
+    cp: '',
     rate: '',
     description:'',
   });
   
-  const [photos, setPhotos] = useState([]);
+ 
   
   // Handle form data changes
   const handleInputChange = (e) => {
@@ -26,22 +26,10 @@ const AddToMarketForm = () => {
     });
   };
 
-  // Handle photo upload
-  const handlePhotoUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const photoUrls = files.map(file => URL.createObjectURL(file));
-    setPhotos([...photos, ...photoUrls]);
-  };
-
-  // Handle photo removal
-  const handleRemovePhoto = (indexToRemove) => {
-    const updatedPhotos = photos.filter((_, index) => index !== indexToRemove);
-    setPhotos(updatedPhotos);
-  };
 
   const handleSubmit=async(e)=>{
     e.preventDefault()
-    const response = await fetch('http://localhost:4000/api/farmer/market',{
+    const response = await fetch('http://localhost:4000/api/buyer/market',{
         method:'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -51,7 +39,7 @@ const AddToMarketForm = () => {
     if (data === 'Added To Market') {
         
         setTimeout(() => {
-            navigate('/farmer_home/market_items'); // After 1 seconds, redirect to home
+            navigate('/buyer_home/market_items'); // After 1 seconds, redirect to home
         }, 1000);
         
     } else {
@@ -96,11 +84,11 @@ const AddToMarketForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="pricePerKg">Expected Selling Price per Kg</label>
+              <label htmlFor="pricePerKg">Expected Cost Price per Kg</label>
               <input
                 type="number"
                 id="pricePerKg"
-                name="sp"
+                name="cp"
                 value={formData.sp}
                 onChange={handleInputChange}
                 placeholder="Enter Price per Kg"
@@ -110,7 +98,7 @@ const AddToMarketForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="rating">Rating for Quality of Crop</label>
+              <label htmlFor="rating">Rating for Quality of Crop Required</label>
               <input
                 type="number"
                 id="rating"
@@ -140,42 +128,9 @@ const AddToMarketForm = () => {
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="photos">Add Photos</label>
-              <input
-                type="file"
-                id="photos"
-                name="photos"
-                multiple
-                onChange={handlePhotoUpload}
-                className="file-input"
-                required
-              />
-            </div>
 
             <button type="submit" className="submit-btn">Add Item</button>
           </form>
-        </div>
-
-        <div className="photo-section">
-          <h3>Uploaded Photos</h3>
-          {photos.length > 0 ? (
-            <div className="photo-slider">
-              {photos.map((photo, index) => (
-                <div key={index} className="photo-slide">
-                  <img src={photo} alt={`Crop ${index + 1}`} />
-                  <button
-                    className="remove-btn"
-                    onClick={() => handleRemovePhoto(index)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No photos uploaded yet</p>
-          )}
         </div>
       </div>
     </>
