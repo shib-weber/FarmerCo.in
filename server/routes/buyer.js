@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Farmer = require('../models/farmer')
 const Buyer = require('../models/buyer');
 const MarketB = require('../models/market_buyer')
 const MarketF= require('../models/market_farmer')
@@ -326,6 +327,13 @@ router.delete('/deleteitem/:id', async (req, res) => {
     }
   });
 
-  
+router.get('/farmers',async(req,res)=>{
+    const farmers = await Farmer.find({})
+    if(farmers.length > 0){
+        return res.json(farmers)
+    }else{
+        return res.json([])
+    }
+})
 
 module.exports = router;
