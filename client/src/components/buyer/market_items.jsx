@@ -1,6 +1,6 @@
 import Navbar from "./navbar";
 import Market_Cards from "./market_Cards";
-import './farmer_home_featured.css';
+import './buyer_home_featured.css';
 import { useEffect, useState } from "react";
 
 const MarketItems = () => {
@@ -8,7 +8,7 @@ const MarketItems = () => {
 
   useEffect(() => {
     const itemList = async () => {
-      const response = await fetch('http://localhost:4000/api/farmer/getitems', {
+      const response = await fetch('http://localhost:4000/api/buyer/getitems', {
         method: "GET",
         credentials: "include",
       });

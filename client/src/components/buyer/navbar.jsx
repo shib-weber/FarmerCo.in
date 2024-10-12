@@ -68,7 +68,7 @@ export default function Navbar(){
                         <ul className="menu bg-base-200 text-base-content z-50 min-h-full w-80 p-4 shadow" >
                             <li onClick={handleHomeClick}><a>Home</a></li>
                             <li onClick={handleOfferItem}><a>Offered Items</a></li>
-                            <li onClick={handleMarketClick}><a>Demand In Market</a></li>
+                            <li onClick={handleMarketClick}><a>Your Demand In Market</a></li>
                             <li onClick={handleCompanyClick}><a>Farmers</a></li>
                             <li onClick={handleSoldClick}><a>Order History</a></li>
                             <li><a>Contracts</a></li>

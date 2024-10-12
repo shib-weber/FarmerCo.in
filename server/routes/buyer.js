@@ -277,10 +277,10 @@ router.get('/uploads/:filename', (req, res) => {
 
 router.post('/market',TokenVerify,async(req,res)=>{
     const {crop,weight,cp,rate,description} = req.body
-    const BuyerId=req.user.userid
+    const CompanyId=req.user.userid
     const name=req.user.username
     const response = await MarketB.create({
-        BuyerId,
+        CompanyId,
         name,
         crop,
         weight,
@@ -299,7 +299,7 @@ router.post('/market',TokenVerify,async(req,res)=>{
 router.get('/getitems', TokenVerify,async (req, res) => {
     try {
         const itemlist = await MarketB.find({});
-        const items = itemlist.filter(item => item.BuyerId === req.user.userid);
+        const items = itemlist.filter(item => item.CompanyId === req.user.userid);
         if (items.length > 0) {
             res.status(200).json(items);  // Return the array of items
         } else {
@@ -325,5 +325,7 @@ router.delete('/deleteitem/:id', async (req, res) => {
       res.status(500).json({ message: 'Error deleting item', error });
     }
   });
+
+  
 
 module.exports = router;

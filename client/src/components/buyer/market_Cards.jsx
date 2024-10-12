@@ -8,13 +8,13 @@ const market_Cards = (props) => {
     }
 
     const handleDelete =async(id)=>{
-      const response = await fetch(`http://localhost:4000/api/farmer/deleteitem/${id}`,{
+      const response = await fetch(`http://localhost:4000/api/buyer/deleteitem/${id}`,{
         method:'DELETE'
       })
       const result = await response.json()
       if(result === 'deleted'){
         
-        navigate('/farmer_home/market_items')
+        navigate('/buyer_home/market_items')
       }
     }
 
@@ -31,9 +31,10 @@ const market_Cards = (props) => {
               <h2 className="card-title">{props.item.name}</h2>
               <p>Crop : {props.item.crop}</p>
               <p>Amount in Kg {props.item.weight}</p>
-              <p>Selling Price {props.item.sp}</p>
+              <p>Quality Required : {props.item.rate}</p>
+              <p>Selling Price {props.item.cp}</p>
               <p className="break-words whitespace-normal">Description {props.item.description}</p>
-              <p>Total Amount : {props.item.sp * props.item.weight}</p>
+              <p>Total Amount : {props.item.cp * props.item.weight}</p>
               
               <div className="card-actions justify-end">
               <button className="btn bg-red-800 text-white" onClick={() => handleDelete(props.item._id)}>Delete</button>
