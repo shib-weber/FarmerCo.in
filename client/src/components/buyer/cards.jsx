@@ -15,7 +15,7 @@ const cards = (props) => {
             <p>Total Amount in Kg: {props.items.weight}</p>
             <p>Selling Price per Kg: {props.items.sp}</p>
             <p>Rating: {props.items.rate}</p>
-            <p>Description: {props.items.description}</p>
+            <p className="break-words whitespace-normal">Description: {props.items.description}</p>
             <div className="card-actions justify-end">
             <button className="btn bg-violet-800 text-white">Offer</button>
             </div>

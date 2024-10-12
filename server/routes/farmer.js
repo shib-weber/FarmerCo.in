@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Farmer = require('../models/farmer');
+const Company = require('../models/buyer')
 const MarketF = require('../models/market_farmer')
+const MarketB = require('../models/market_buyer')
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -133,6 +135,22 @@ router.get('/fulldetails', TokenVerify,async(req,res)=>{
     const user = await Farmer.findOne({_id:userId})
     res.json(user)
 })
+
+
+router.get('/marketproduct', async (req, res) => {
+    try {
+        const products = await MarketB.find({});
+        
+        if (products.length > 0) {
+            return res.json(products);
+        } else {
+            return res.status(200).json({ message: 'No products available in the market', products: [] });
+        }
+    } catch (error) {
+        console.error("Error fetching market products:", error);
+        return res.status(500).json({ message: 'Server error, please try again later' });
+    }
+});
 
 const mongourl = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/FarmerCo' ;
 const conn = mongoose.connection;
@@ -305,5 +323,16 @@ router.delete('/deleteitem/:id', async (req, res) => {
       res.status(500).json({ message: 'Error deleting item', error });
     }
   });
+
+
+  router.get('/companies',async(req,res)=>{
+    const companies = await Company.find({})
+    if(companies.length > 0){
+        return res.json(companies)
+    }else{
+        return res.json([])
+    }
+})
+
 
 module.exports = router;

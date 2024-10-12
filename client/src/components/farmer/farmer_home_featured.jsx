@@ -2,6 +2,7 @@ import Navbar from "./navbar"
 import './farmer_home_featured.css'
 import Card from "./cards"
 import { useNavigate } from "react-router-dom"
+import { useState , useEffect } from "react"
 
 
 const farmer_home_featured = () => {
@@ -9,6 +10,23 @@ const farmer_home_featured = () => {
     const handleAddClick =()=>{
         navigate('add_item')
     }
+
+
+    const [market, setMarket] = useState([])
+
+    useEffect(() => {
+        const productList = async () => {
+            const response = await fetch('http://localhost:4000/api/farmer/marketproduct', {
+                method: 'GET'
+            })
+            const result = await response.json()
+            setMarket(result)
+        }
+        // Invoke the function
+        productList()
+    }, [])
+
+
   return (
     <>
     <Navbar/>
@@ -32,9 +50,13 @@ const farmer_home_featured = () => {
                     </div>
                 </div>
                 <div className="cards_container">
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                {
+                            market.length > 0 ? 
+                            market.map((item) => (
+                                <Card key={item.id} items={item} />
+                            )) : 
+                            'No Product in Market'
+                        }
                 </div>
                 <button id="add_item" onClick={handleAddClick}>+</button>
         </div>
