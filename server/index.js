@@ -2,6 +2,7 @@ const express= require('express')
 const Farmer_routes=require('./routes/farmer');
 const Buyer_routes = require('./routes/buyer')
 const mongoose= require('mongoose')
+const path = require('path')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const cors=require('cors')
@@ -18,6 +19,8 @@ app.use(cors(corsOptions)); // Apply this before routes
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname,'public')))
 
 app.use('/api/farmer',Farmer_routes)
 app.use('/api/buyer',Buyer_routes)

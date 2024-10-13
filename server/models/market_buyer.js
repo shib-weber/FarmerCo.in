@@ -7,7 +7,9 @@ const Market_BSchema = mongoose.Schema({
     weight:{type:Number,required:true},
     cp:{type:Number,required:true},
     rate:{type:Number,required:true},
-    description:{type:String,required:true}
+    description:{type:String,required:true},
+    sold:{type:Boolean,default:false},
+    sellerId:{type:String}
 })
 
 const MarketB = mongoose.model('marketb',Market_BSchema)

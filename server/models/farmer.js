@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 
 const FarmerSchema = mongoose.Schema({
-    profilepic:{type:String,default:"https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"},
+    profilepic:{type:String,default:"/farmer.webp"},
     name:{type:String,required:true,},
     password:{type:String,required:true},
     credentials:{type:Boolean,default:false},

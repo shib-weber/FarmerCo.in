@@ -1,0 +1,73 @@
+.make_offer {
+    background-color: #f7f7f7;
+    padding: 2rem;
+    margin: 1rem auto;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .make_offer h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #5C0EBE;
+  }
+  
+  .make_offer p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .make_offer form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .make_offer .price {
+    margin-bottom: 1.5rem;
+  }
+  
+  .make_offer label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .make_offer input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .make_offer button {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background-color: #5C0EBE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .make_offer button:hover {
+    background-color: #4B0082;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .make_offer {
+      padding: 1rem;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    input, button {
+      font-size: 1rem;
+    }
+  }

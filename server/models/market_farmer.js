@@ -7,7 +7,9 @@ const Market_FSchema = mongoose.Schema({
     weight:{type:Number,required:true},
     sp:{type:Number,required:true},
     rate:{type:Number,required:true},
-    description:{type:String,required:true}
+    description:{type:String,required:true},
+    sold:{type:Boolean,default:false},
+    buyerId:{type:String}
 })
 
 const MarketF = mongoose.model('marketf',Market_FSchema)

@@ -1,4 +1,6 @@
-const cards = (props) => {
+
+const cardsdurindoffer = (props) => {
+
   return (
     <>
       <div className="card bg-base-100 shadow-xl relative">
@@ -15,17 +17,15 @@ const cards = (props) => {
         <div className="p-4">
           <h2 className="text-2xl font-semibold">{props.items.name}</h2>
           <p>Crop: {props.items.crop}</p>
-          <p>Amount: {props.items.weight} Kg</p>
-          <p>Price Offered Per Kg: ₹{props.items.cp}</p>
-          <p className="break-words">Description: {props.items.description}</p>
+            <p>Total Amount in Kg: {props.items.weight}</p>
+            <p>Selling Price per Kg: {props.items.sp}</p>
+            <p>Rating: {props.items.rate}</p>
+            <p className="break-words whitespace-normal">Description: {props.items.description}</p>
           
-          <div className="mt-4 flex justify-end">
-            <button className="btn bg-green-800 text-white">Offer</button>
-          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default cards;
+export default cardsdurindoffer;

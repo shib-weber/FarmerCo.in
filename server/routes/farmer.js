@@ -297,7 +297,7 @@ router.post('/market',TokenVerify,async(req,res)=>{
 router.get('/getitems', TokenVerify,async (req, res) => {
     try {
         const itemlist = await MarketF.find({});
-        const items = itemlist.filter(item => item.FarmerId === req.user.userid);
+        const items = itemlist.filter(item => ((item.FarmerId === req.user.userid) && (item.sold === false)));
         if (items.length > 0) {
             res.status(200).json(items);  // Return the array of items
         } else {
@@ -334,5 +334,19 @@ router.delete('/deleteitem/:id', async (req, res) => {
     }
 })
 
+
+router.get('/sold',async(req,res)=>{
+    try {
+        const itemlist = await MarketF.find({});
+        const items = itemlist.filter(item => ((item.FarmerId === req.user.userid) && (item.sold === true)));
+        if (items.length > 0) {
+            res.status(200).json(items);  // Return the array of items
+        } else {
+            res.status(200).json([]);  // Return an empty array if no items found
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching items", error });
+    }
+})
 
 module.exports = router;

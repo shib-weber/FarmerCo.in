@@ -4,6 +4,7 @@ const Farmer = require('../models/farmer')
 const Buyer = require('../models/buyer');
 const MarketB = require('../models/market_buyer')
 const MarketF= require('../models/market_farmer')
+const BuyerS = require('../models/buyer_send_offers')
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -300,7 +301,7 @@ router.post('/market',TokenVerify,async(req,res)=>{
 router.get('/getitems', TokenVerify,async (req, res) => {
     try {
         const itemlist = await MarketB.find({});
-        const items = itemlist.filter(item => item.CompanyId === req.user.userid);
+        const items = itemlist.filter(item => ((item.CompanyId === req.user.userid) && (item.sold === false)));
         if (items.length > 0) {
             res.status(200).json(items);  // Return the array of items
         } else {
@@ -334,6 +335,36 @@ router.get('/farmers',async(req,res)=>{
     }else{
         return res.json([])
     }
+})
+
+router.get('/bought',TokenVerify ,async(req,res)=>{
+    try {
+        const itemlist = await MarketF.find({});
+        const items = itemlist.filter(item => ((item.buyerId === req.user.userid) && (item.sold === true)));
+        if (items.length > 0) {
+            res.status(200).json(items);  // Return the array of items
+        } else {
+            res.status(200).json([]);  // Return an empty array if no items found
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching items", error });
+    }
+})
+
+router.post('/offerplacement/:id',TokenVerify,async (req,res)=>{
+    const offerId = req.params.id;
+    const {price} =req.body
+    const Cname= req.user.username;
+    const Cid = req.user.userid;
+
+    const response = await BuyerS.create({
+        offerId,
+        price,
+        Cname,
+        Cid
+    })
+    return res.json('done')
+
 })
 
 module.exports = router;

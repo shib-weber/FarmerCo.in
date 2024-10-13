@@ -39,12 +39,6 @@ const farmer_home_featured = () => {
                         <input className="input input-bordered join-item" placeholder="Search" />
                         </div>
                     </div>
-                    <select className="select select-bordered join-item">
-                        <option disabled selected>Filter</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
                     <div className="indicator">
                         <button className="btn join-item">Search</button>
                     </div>
@@ -53,7 +47,7 @@ const farmer_home_featured = () => {
                 {
                             market.length > 0 ? 
                             market.map((item) => (
-                                <Card key={item.id} items={item} />
+                                <Card key={item._id} items={item} />
                             )) : 
                             'No Product in Market'
                         }
