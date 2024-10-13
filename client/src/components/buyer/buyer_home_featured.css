@@ -79,5 +79,9 @@ body{
     .join{
       scale: 0.9;
     }
+    #add_item{
+      
+      left: 70%;
+    }
   }
   

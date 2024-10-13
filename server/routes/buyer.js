@@ -69,6 +69,8 @@ router.post('/signup', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
         res.json({message:'Signup Successful'});
+    }else{
+        res.json(err)
     }
 });
 
@@ -99,10 +101,16 @@ router.post('/logout',(req,res)=>{
 })
 
 
-router.get('/marketproduct', async (req, res) => {
+router.get('/marketproduct',TokenVerify, async (req, res) => {
     try {
-        const products = await MarketF.find({});
-        
+        const Allproducts = await MarketF.find({});
+        const offered = await BuyerS.find({})
+        const products = Allproducts.filter(product => 
+            !offered.some(offer => 
+                offer.Cid === req.user.userid && offer.offerId === product._id.toString() // Exclude if the user has made an offer
+            )
+        );
+
         if (products.length > 0) {
             return res.json(products);
         } else {
@@ -365,6 +373,27 @@ router.post('/offerplacement/:id',TokenVerify,async (req,res)=>{
     })
     return res.json('done')
 
+})
+
+router.get('/offerproduct',TokenVerify,async(req,res)=>{
+    try {
+        const Allproducts = await MarketF.find({});
+        const offered = await BuyerS.find({})
+        const products = Allproducts.filter(product => 
+            offered.some(offer => 
+                offer.Cid === req.user.userid && offer.offerId === product._id.toString() // Exclude if the user has made an offer
+            )
+        );
+
+        if (products.length > 0) {
+            return res.json(products);
+        } else {
+            return res.status(200).json({ message: 'No products available in the market', products: [] });
+        }
+    } catch (error) {
+        console.error("Error fetching market products:", error);
+        return res.status(500).json({ message: 'Server error, please try again later' });
+    }
 })
 
 module.exports = router;

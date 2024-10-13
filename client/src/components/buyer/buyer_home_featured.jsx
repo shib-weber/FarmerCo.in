@@ -16,9 +16,11 @@ const BuyerHomeFeatured = () => {
     useEffect(() => {
         const productList = async () => {
             const response = await fetch('http://localhost:4000/api/buyer/marketproduct', {
-                method: 'GET'
+                method: 'GET',
+                credentials:"include"
             })
             const result = await response.json()
+            
             setMarket(result)
         }
         // Invoke the function

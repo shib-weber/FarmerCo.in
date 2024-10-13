@@ -353,7 +353,6 @@ router.get('/sold',async(req,res)=>{
 router.get('/viewOffers/:id',TokenVerify,async(req,res)=>{
     const response = await BuyerS.find({})
     const offers = await response.filter(offer => offer.offerId === req.params.id)
-    console.log(response)
     if(offers.length > 0){
         return res.json(offers)
     }else{

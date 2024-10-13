@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./navbar.css"
+import officeimg from '../../assets/office.webp'
 
 export default function Navbar(){
     const navigate= useNavigate()
@@ -88,7 +89,7 @@ export default function Navbar(){
                 <div className="w-10 rounded-full">
                 <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp" />
+                    src={officeimg}/>
                 </div>
             </div>
             <ul

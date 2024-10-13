@@ -4,6 +4,7 @@ import Add_to_market_form from './add_to_market_form'
 import Market_items from './market_items'
 import Sold_items from "./sold_items"
 import BuyerOfferPlacement from "./buyer_offer_placement"
+import OfferedItems from "./offered_items"
 {/*
 import Offered_items from './offered_items'
 
@@ -22,6 +23,7 @@ const BuyerRoutes = () => {
       <Route path='/buyer_home/market_items' element={<ProtectedRoute><Market_items /></ProtectedRoute>} />
       <Route path='/buyer_home/buy_items' element={<ProtectedRoute><Sold_items /></ProtectedRoute>} />
       <Route path='/buyer_home/offer' element={<ProtectedRoute><BuyerOfferPlacement /></ProtectedRoute>} />
+      <Route path='/buyer_home/offered_items' element={<ProtectedRoute><OfferedItems/></ProtectedRoute>}/>
 { /*     
       <Route path='/farmer_home/offered_items' element={<ProtectedRoute><Offered_items /></ProtectedRoute>} />
       

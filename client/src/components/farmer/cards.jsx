@@ -1,3 +1,5 @@
+import officeimg from '../../assets/office.webp'
+
 const cards = (props) => {
   return (
     <>
@@ -6,7 +8,7 @@ const cards = (props) => {
         <div className="relative w-full h-48 overflow-hidden">
           <img
             className="absolute top-0 left-0 w-full h-full object-cover"
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+            src={officeimg}
             alt="Crop"
           />
         </div>

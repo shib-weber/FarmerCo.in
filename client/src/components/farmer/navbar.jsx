@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./navbar.css"
+import farmerimg from '../../assets/farmer.webp'
 
 export default function Navbar(){
     const navigate= useNavigate()
@@ -91,7 +92,7 @@ export default function Navbar(){
                 <div className="w-10 rounded-full">
                 <img
                     alt="Tailwind CSS Navbar component"
-                    src="farmer.webp" />
+                    src={farmerimg} />
                 </div>
             </div>
             <ul
