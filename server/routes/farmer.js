@@ -360,4 +360,28 @@ router.get('/viewOffers/:id',TokenVerify,async(req,res)=>{
     }
 })
 
+router.patch('/updatesold', TokenVerify, async (req, res) => {
+    try {
+        const { offerId } = req.body; // Extract offerId from request body
+
+        // Update the farmer's product details in the database by setting 'sold' to true
+        const updatedProduct = await MarketF.findByIdAndUpdate(offerId, { sold: true }, {
+            new: true, // Return the updated document
+            runValidators: true, // Validate fields against the schema
+        });
+
+        // Check if the product was found and updated
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        return res.status(200).json({ message: 'done', updatedProduct });
+    } catch (error) {
+        console.error('Error updating product details:', error);
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+});
+
+
+
 module.exports = router;

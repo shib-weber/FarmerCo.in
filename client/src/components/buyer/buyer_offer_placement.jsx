@@ -36,7 +36,7 @@ export default function BuyerOfferPlacement() {
     const result = await response.json();
 
     if (result === 'done') {
-      navigate('/buyer_home/offered');
+      navigate('/buyer_home/offered_items');
     }
   };
 

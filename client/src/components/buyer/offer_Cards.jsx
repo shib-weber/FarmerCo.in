@@ -1,7 +1,8 @@
 //import { useNavigate } from "react-router-dom";
 import farmerimg from '../../assets/farmer.webp'
 
-const cards = (props) => {
+const offercards = (props) => {
+  console.log(props)
   //const navigate = useNavigate()
 
   const handleClick =()=>{
@@ -28,6 +29,7 @@ const cards = (props) => {
             <p>Selling Price per Kg: {props.items.sp}</p>
             <p>Rating: {props.items.rate}</p>
             <p className="break-words whitespace-normal">Description: {props.items.description}</p>
+            {props.items.sold ? <p className='text-green-600'>Offer Accepted</p>: <p className='text-red-600'>Offer Pending</p> } 
           
           <div className="mt-4 flex justify-end">
           <button className="btn bg-red-800 text-white" onClick={handleClick}>Delete</button>
@@ -38,4 +40,4 @@ const cards = (props) => {
   );
 };
 
-export default cards;
+export default offercards;

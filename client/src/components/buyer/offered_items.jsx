@@ -9,7 +9,7 @@ const offered_items = () => {
   useEffect(()=>{
 
     const getOfferedItems=async()=>{
-      const response = await fetch('http://localhost:4000/api/buyer/offeredproduct',{
+      const response = await fetch('http://localhost:4000/api/buyer/offerproduct',{
         method:'GET',
         credentials:"include"
       })
@@ -29,9 +29,9 @@ const offered_items = () => {
                     
                     {
                       items.length > 0 ?
-                      items.map((item)=>{
-                        <Offer_cards item={item}/>
-                      }) :
+                      items.map((item)=>(
+                        <Offer_cards key={item._id} items={item}/>
+                      )) :
                       'You Haven`t Offered Any Item'
                     }
                 </div>

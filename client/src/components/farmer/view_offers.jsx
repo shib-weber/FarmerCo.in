@@ -43,10 +43,10 @@ export default function ViewOffers() {
 
           <div className="view_offer">
             <h1>Offers on this Item</h1>
-            <div className="offers">
+            <div className="offers flex flex-col gap-4">
               {offers.length > 0 ? (
                 offers.map((offer, index) => (
-                  <OfferCards key={index} offer={offer} sp={item.sp} />
+                  <OfferCards key={index} offer={offer} id={item._id} weight={item.weight} />
                 ))
               ) : (
                 <p>Yet To Receive Offers</p>
