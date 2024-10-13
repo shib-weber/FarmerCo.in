@@ -10,7 +10,7 @@ const OfferCards = (props) => {
         'Content-Type': 'application/json', // Added headers
       },
       credentials: "include",
-      body: JSON.stringify({ offerId: props.id })
+      body: JSON.stringify({ offerId: props.id , Cid:props.offer.Cid })
     })
     const result = await response.json();
     if(result.message === 'done'){

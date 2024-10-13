@@ -386,7 +386,7 @@ router.get('/offerproduct',TokenVerify,async(req,res)=>{
         );
 
         if (products.length > 0) {
-            return res.json(products);
+            return res.json({result:products,myid:req.user.userid});
         } else {
             return res.status(200).json({ message: 'No products available in the market', products: [] });
         }
@@ -395,5 +395,21 @@ router.get('/offerproduct',TokenVerify,async(req,res)=>{
         return res.status(500).json({ message: 'Server error, please try again later' });
     }
 })
+
+router.delete('/deleteoffer/:id', TokenVerify, async (req, res) => {
+    try {
+      const Cid = req.user.userid;
+      const offerId = req.params.id;
+  
+      // Find the offer by offerId and Cid in one step
+      const offer = await BuyerS.findOneAndDelete({ offerId, Cid });
+
+      return res.status(200).json('deleted');
+    } catch (error) {
+      console.error('Error deleting offer:', error);
+      res.status(500).json({ message: 'Error deleting offer', error: error.message });
+    }
+  });
+  
 
 module.exports = router;

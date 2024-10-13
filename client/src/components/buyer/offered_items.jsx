@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 
 const offered_items = () => {
   const [items , setItems] =useState([])
+  const [myid , setMyid] =useState("")
 
   useEffect(()=>{
 
@@ -13,8 +14,9 @@ const offered_items = () => {
         method:'GET',
         credentials:"include"
       })
-      const result = await response.json();
+      const {result , myid} = await response.json();
       setItems(result)
+      setMyid(myid)
     }
 
     getOfferedItems()
@@ -30,7 +32,7 @@ const offered_items = () => {
                     {
                       items.length > 0 ?
                       items.map((item)=>(
-                        <Offer_cards key={item._id} items={item}/>
+                        <Offer_cards key={item._id} items={item} myid={myid}/>
                       )) :
                       'You Haven`t Offered Any Item'
                     }
