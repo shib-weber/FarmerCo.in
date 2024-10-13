@@ -4,6 +4,7 @@ const Farmer = require('../models/farmer');
 const Company = require('../models/buyer')
 const MarketF = require('../models/market_farmer')
 const MarketB = require('../models/market_buyer')
+const BuyerS = require('../models/buyer_send_offers')
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -346,6 +347,17 @@ router.get('/sold',async(req,res)=>{
         }
     } catch (error) {
         res.status(500).json({ message: "Error fetching items", error });
+    }
+})
+
+router.get('/viewOffers/:id',TokenVerify,async(req,res)=>{
+    const response = await BuyerS.find({})
+    const offers = await response.filter(offer => offer.offerId === req.params.id)
+    console.log(response)
+    if(offers.length > 0){
+        return res.json(offers)
+    }else{
+        return res.json([])
     }
 })
 

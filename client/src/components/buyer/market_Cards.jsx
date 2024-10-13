@@ -4,7 +4,7 @@ const market_Cards = (props) => {
   console.log(props)
     const navigate = useNavigate()
     const handleViewOffers =()=>{
-        navigate('/farmer_home/view_offers')
+        navigate('/buyer_home/view_offers')
     }
 
     const handleDelete =async(id)=>{

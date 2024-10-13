@@ -5,6 +5,7 @@ import Offered_items from './offered_items'
 import Market_items from './market_items'
 import Sold_items from './sold_items'
 import Company from './company'
+import ViewOffers from "./view_offers"
 import FarmersForum from './farmers_forum'
 import Profile from './profile'
 import ProtectedRoute from './protected_routes'
@@ -18,6 +19,7 @@ const FarmerRoutes = () => {
       <Route path='/farmer_home/market_items' element={<ProtectedRoute><Market_items /></ProtectedRoute>} />
       <Route path='/farmer_home/sold_items' element={<ProtectedRoute><Sold_items /></ProtectedRoute>} />
       <Route path='/farmer_home/companies' element={<ProtectedRoute><Company /></ProtectedRoute>} />
+      <Route path="/farmer_home/view_offers" element={<ProtectedRoute><ViewOffers/></ProtectedRoute>}/>
       <Route path='/farmer_home/farmers_forum' element={<ProtectedRoute><FarmersForum /></ProtectedRoute>} />
       <Route path='/farmer_home/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     </>
