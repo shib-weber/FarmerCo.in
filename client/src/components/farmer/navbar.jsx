@@ -5,17 +5,13 @@ import farmerimg from '../../assets/farmer.webp'
 export default function Navbar(){
     const navigate= useNavigate()
     
-    const handleOfferItem =()=>{
-        navigate('/farmer_home/offered_items')
-    }
+
 
     const handleHomeClick =()=>{
         navigate('/farmer_home')
     }
 
-    const handleMarketClick =()=>{
-        navigate('/farmer_home/market_items')
-    }
+
 
     const handleSoldClick =()=>{
         navigate('/farmer_home/sold_items')
@@ -70,11 +66,9 @@ export default function Navbar(){
                         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                         <ul className="menu bg-base-200 text-base-content z-50 min-h-full w-80 p-4 shadow" >
                             <li onClick={handleHomeClick}><a>Home</a></li>
-                            <li onClick={handleOfferItem}><a>Offered Items</a></li>
-                            <li onClick={handleMarketClick}><a>Your Items In Market</a></li>
+                            <li onClick={handleSoldClick}><a>Sold Log</a></li>
                             <li onClick={handleCompanyClick}><a>Companies</a></li>
-                            <li onClick={handleSoldClick}><a>Sold History</a></li>
-                            <li onClick={handleFarmerForum}><a>Farmer`s Forum</a></li>
+                            <li onClick={handleFarmerForum}><a>Discussion Forum</a></li>
                             <li><a>Contracts</a></li>
                         </ul>
                     </div>

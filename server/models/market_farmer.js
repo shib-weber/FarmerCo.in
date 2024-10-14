@@ -9,7 +9,8 @@ const Market_FSchema = mongoose.Schema({
     rate:{type:Number,required:true},
     description:{type:String,required:true},
     sold:{type:Boolean,default:false},
-    buyerId:{type:String}
+    buyerId:{type:String},
+    createdAt: { type: Date, default: Date.now },
 })
 
 const MarketF = mongoose.model('marketf',Market_FSchema)

@@ -25,7 +25,7 @@ const company = () => {
     <>
       <Navbar/>
       <div className="whole_contents">
-          <div className="add_to_market">
+          <div className="add_to_market bg-green-800">
               <h1>Companies</h1>
                   <div className="cards_container">
                   {companies.length > 0 ? 

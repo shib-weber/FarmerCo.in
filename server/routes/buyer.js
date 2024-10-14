@@ -375,26 +375,35 @@ router.post('/offerplacement/:id',TokenVerify,async (req,res)=>{
 
 })
 
-router.get('/offerproduct',TokenVerify,async(req,res)=>{
+router.get('/offerproduct', TokenVerify, async (req, res) => {
     try {
-        const Allproducts = await MarketF.find({});
-        const offered = await BuyerS.find({})
-        const products = Allproducts.filter(product => 
-            offered.some(offer => 
-                offer.Cid === req.user.userid && offer.offerId === product._id.toString() // Exclude if the user has made an offer
-            )
-        );
+        // Fetch all offers, sorting by the creation date in descending order
+        const offered = await BuyerS.find({}).sort({ createdAt: -1 });
+        
+        // Extract the offer IDs from the sorted offers, ensuring correct user matching
+        const offerIds = offered
+            .filter(offer => offer.Cid === req.user.userid) // Filter offers based on user ID
+            .map(offer => offer.offerId); // Collect all offer IDs
+        
+        // Fetch products from MarketF where _id matches any of the offerIds
+        const products = await MarketF.find({ _id: { $in: offerIds } });
+        
+        // Create a sorted list of products based on the order of offerIds
+        const sortedProducts = offerIds.map(offerId => 
+            products.find(product => product._id.toString() === offerId)
+        ).filter(Boolean); // Filter out any undefined products
 
-        if (products.length > 0) {
-            return res.json({result:products,myid:req.user.userid});
+        if (sortedProducts.length > 0) {
+            return res.json({ result: sortedProducts, myid: req.user.userid });
         } else {
-            return res.status(200).json({ message: 'No products available in the market', products: [] });
+            return res.status(200).json({ message: 'No products available in the market', result: [] });
         }
     } catch (error) {
         console.error("Error fetching market products:", error);
         return res.status(500).json({ message: 'Server error, please try again later' });
     }
-})
+});
+
 
 router.delete('/deleteoffer/:id', TokenVerify, async (req, res) => {
     try {
@@ -411,5 +420,23 @@ router.delete('/deleteoffer/:id', TokenVerify, async (req, res) => {
     }
   });
   
+  router.get('/offerc/:id', TokenVerify, async (req, res) => {
+    try {
+        const Cid = req.user.userid;
+        const offerId = req.params.id;
+
+        // Find the offer based on the correct field names in your schema
+        const offer = await BuyerS.findOne({ offerId: offerId, Cid: Cid });
+
+        if (!offer) {
+            return res.status(404).json({ message: 'Offer not found' });
+        }
+
+        return res.json(offer);
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 module.exports = router;

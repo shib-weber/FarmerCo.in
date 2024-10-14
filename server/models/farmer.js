@@ -12,7 +12,8 @@ const FarmerSchema = mongoose.Schema({
     phone:{type:Number},
     idp:{type:Number},
     land:{type:Number},
-    mjc:{type:String}
+    mjc:{type:String},
+    createdAt: { type: Date, default: Date.now },
 })
 
 const Farmer = mongoose.model('farmer',FarmerSchema)

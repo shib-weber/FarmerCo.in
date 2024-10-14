@@ -11,7 +11,8 @@ const BuyerSchema = mongoose.Schema({
     phone:{type:Number},
     yto:{type:Number},
     mjc:{type:String},
-    credentials:{type:Boolean,default:false}
+    credentials:{type:Boolean,default:false},
+    createdAt: { type: Date, default: Date.now },
 })
 
 const Buyer = mongoose.model('buyer',BuyerSchema)

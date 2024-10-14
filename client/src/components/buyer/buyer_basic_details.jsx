@@ -35,7 +35,7 @@ const buyer_basic_details = () => {
         if (response.ok) {
             const data = await response.json();
             console.log('Update successful:', data);
-            navigate('/buyer/profile')
+            navigate('/buyer_home/profile')
             setTimeout(() => {
                 navigate('/buyer_home'); // After 3 seconds, redirect to home
             }, 3000);

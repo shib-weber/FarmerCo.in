@@ -14,7 +14,7 @@ const MarketCards = (props) => {
     });
     const result = await response.json();
     if (result === 'deleted') {
-      navigate('/farmer_home/market_items');
+      navigate('/farmer_home');
     }
   };
 

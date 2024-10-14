@@ -33,16 +33,6 @@ const BuyerHomeFeatured = () => {
             <div className="whole_contents">
                 <div className="add_to_market">
                     <h1>Products In Market</h1>
-                    <div className="join">
-                        <div>
-                            <div>
-                                <input className="input input-bordered join-item" placeholder="Search" />
-                            </div>
-                        </div>
-                        <div className="indicator">
-                            <button className="btn join-item">Search</button>
-                        </div>
-                    </div>
                     <div className="cards_container">
                         {
                             market.length > 0 ? 
@@ -52,7 +42,7 @@ const BuyerHomeFeatured = () => {
                             'No Product in Market'
                         }
                     </div>
-                    <button id="add_item" onClick={handleAddClick}>+</button>
+                    {/*<button id="add_item" onClick={handleAddClick}>+</button>*/}
                 </div>
             </div>
         </>

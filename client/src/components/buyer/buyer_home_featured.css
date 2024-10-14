@@ -40,26 +40,8 @@ body{
 
   .add_to_market h1 {
     color: white;
-    font-size: xx-large;
+    font-size: x-large;
     font-family: 'Courier New', Courier, monospace;
-  }
-  #add_item{
-    position: fixed;
-    top: 80%;
-    left: 80%;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size:70px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: rgb(60, 1, 83);
-  }
-  #add_item:hover {
-    background-color: rgb(93, 48, 151);
   }
   
   /* Responsive design */

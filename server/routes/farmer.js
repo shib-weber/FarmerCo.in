@@ -298,7 +298,9 @@ router.post('/market',TokenVerify,async(req,res)=>{
 router.get('/getitems', TokenVerify,async (req, res) => {
     try {
         const itemlist = await MarketF.find({});
-        const items = itemlist.filter(item => ((item.FarmerId === req.user.userid) && (item.sold === false)));
+        const items = itemlist
+            .filter(item => (item.FarmerId === req.user.userid && item.sold === false))
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         if (items.length > 0) {
             res.status(200).json(items);  // Return the array of items
         } else {

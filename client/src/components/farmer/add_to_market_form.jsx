@@ -51,7 +51,7 @@ const AddToMarketForm = () => {
     if (data === 'Added To Market') {
         
         setTimeout(() => {
-            navigate('/farmer_home/market_items'); // After 1 seconds, redirect to home
+            navigate('/farmer_home'); // After 1 seconds, redirect to home
         }, 1000);
         
     } else {

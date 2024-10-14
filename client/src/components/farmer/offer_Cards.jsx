@@ -14,7 +14,7 @@ const OfferCards = (props) => {
     })
     const result = await response.json();
     if(result.message === 'done'){
-      navigate('/farmer_home/market_items')
+      navigate('/farmer_home')
     }
   }
     return (

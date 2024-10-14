@@ -5,7 +5,8 @@ const Buyer_SendSchema=mongoose.Schema({
     Cname:{type:String,required:true},
     Cid:{type:String,required:true},
     price:{type:Number,required:true},
-    accept:{type:Boolean,default:false}
+    accept:{type:Boolean,default:false},
+    createdAt: { type: Date, default: Date.now },
 })
 
 const BuyerOffer = mongoose.model('buyerso',Buyer_SendSchema)

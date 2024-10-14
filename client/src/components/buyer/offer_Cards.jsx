@@ -1,11 +1,23 @@
-import { useNavigate } from "react-router-dom";
 import farmerimg from '../../assets/farmer.webp';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const OfferCards = (props) => {
   console.log(props);
-  const navigate = useNavigate();
   const [deleted, setDeleted] = useState(false); // State to track deleted status
+  const [offer, setOffer] = useState({});
+
+  useEffect( ()=>{
+    const offerLoad =async()=>{
+      const response = await fetch(`http://localhost:4000/api/buyer/offerc/${props.items._id}`,{
+        method:"GET",
+        credentials:"include"
+      })
+      const result = await response.json();
+      setOffer(result)
+    }
+
+    offerLoad()
+  },[])
 
   const handleClick = async () => {
     const response = await fetch(`http://localhost:4000/api/buyer/deleteoffer/${props.items._id}`, {
@@ -43,9 +55,11 @@ const OfferCards = (props) => {
         <div className="p-4">
           <h2 className="text-2xl font-semibold">{props.items.name}</h2>
           <p>Crop: {props.items.crop}</p>
+          <p>Rating: {props.items.rate}</p>
           <p>Total Amount in Kg: {props.items.weight}</p>
           <p>Selling Price per Kg: {props.items.sp}</p>
-          <p>Rating: {props.items.rate}</p>
+          <p>Selling Price Offered per Kg: {offer.price}</p>
+          <p>Total : ₹ {props.items.weight * offer.price}</p>
           <p className="break-words whitespace-normal">Description: {props.items.description}</p>
           
           {/* Conditional offer status */}
