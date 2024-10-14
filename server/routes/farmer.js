@@ -338,7 +338,7 @@ router.delete('/deleteitem/:id', async (req, res) => {
 })
 
 
-router.get('/sold',async(req,res)=>{
+router.get('/solditems',TokenVerify,async(req,res)=>{
     try {
         const itemlist = await MarketF.find({});
         const items = itemlist.filter(item => ((item.FarmerId === req.user.userid) && (item.sold === true)));
@@ -388,6 +388,21 @@ router.patch('/updatesold', TokenVerify, async (req, res) => {
     }
 });
 
+router.get('/offerc/:id', TokenVerify, async (req, res) => {
+    try {
+        const offerId = req.params.id;
 
+        // Find the offer based on the correct field names in your schema
+        const offer = await BuyerS.findOne({ offerId: offerId, accept:true });
+
+        if (!offer) {
+            return res.status(404).json({ message: 'Offer not found' });
+        }
+
+        return res.json(offer);
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

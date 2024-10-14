@@ -1,18 +1,40 @@
 import Navbar from "./navbar"
 import Sold_Cards from "./sold_Cards"
 import './farmer_home_featured.css'
+import { useEffect, useState } from "react"
 
-const sold_items = () => {
+
+const Sold_items = () => {
+
+  const [items, setItems] = useState([])
+
+  useEffect(()=>{
+    const getsolditems = async()=>{
+      const response = await fetch('http://localhost:4000/api/farmer/solditems',{
+        method:"GET",
+        credentials:"include"
+      })
+      const result = await response.json();
+      setItems(result)
+    }
+
+    getsolditems();
+
+  },[])
   return (
     <>
           <Navbar/>
     <div className="whole_contents">
-        <div className="add_to_market">
+        <div className="add_to_market bg-green-800">
             <h1>Items You Sold</h1>
                 <div className="cards_container">
-                    <Sold_Cards/>
-                    <Sold_Cards/>
-                    <Sold_Cards/>
+                  {items.length > 0 ?
+                  items.map((item)=>
+                    <Sold_Cards key={item._id} items={item} />
+                  ) :
+                  'No Item Sold yet'
+                  }
+                    
                 </div>
         </div>
     </div>
@@ -20,4 +42,4 @@ const sold_items = () => {
   )
 }
 
-export default sold_items
+export default Sold_items

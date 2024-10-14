@@ -103,7 +103,8 @@ router.post('/logout',(req,res)=>{
 
 router.get('/marketproduct',TokenVerify, async (req, res) => {
     try {
-        const Allproducts = await MarketF.find({});
+        const Allproductsw = await MarketF.find({});
+        const Allproducts = await Allproductsw.filter(product => product.sold === false)
         const offered = await BuyerS.find({})
         const products = Allproducts.filter(product => 
             !offered.some(offer => 
