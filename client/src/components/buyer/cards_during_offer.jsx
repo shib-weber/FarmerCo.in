@@ -21,7 +21,7 @@ const cardsdurindoffer = (props) => {
             <p>Selling Price per Kg: {props.items.sp}</p>
             <p>Rating: {props.items.rate}</p>
             <p className="break-words whitespace-normal">Description: {props.items.description}</p>
-          
+            <h2 className="text-2xl font-semibold">Total Price : {props.items.weight * props.items.sp}</h2>
         </div>
       </div>
     </>

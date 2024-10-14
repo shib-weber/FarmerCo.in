@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import farmerimg from '../../assets/farmer.webp'
+import { useState} from 'react';
 
 const MarketCards = (props) => {
   const navigate = useNavigate();
+  const [deleted, setDeleted] = useState(false);
 
   const handleViewOffers = () => {
     navigate('/farmer_home/view_offers',{ state: { item: props.item } });
@@ -14,9 +16,12 @@ const MarketCards = (props) => {
     });
     const result = await response.json();
     if (result === 'deleted') {
-      navigate('/farmer_home');
+      setDeleted(true);
     }
   };
+  if (deleted) {
+    return null;
+  }
 
   return (
     <>
@@ -37,7 +42,7 @@ const MarketCards = (props) => {
           <p>Amount: {props.item.weight} Kg</p>
           <p>Selling Price per Kg: ₹{props.item.sp}</p>
           <p className="break-words">Description: {props.item.description}</p>
-          <p>Total Amount: ₹{props.item.sp * props.item.weight}</p>
+          <p  className="text-2xl font-semibold ">Total Amount: ₹{props.item.sp * props.item.weight}</p>
 
           <div className="mt-4 flex justify-end">
             <button

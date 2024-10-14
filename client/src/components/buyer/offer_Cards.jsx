@@ -2,7 +2,6 @@ import farmerimg from '../../assets/farmer.webp';
 import { useState, useEffect } from 'react';
 
 const OfferCards = (props) => {
-  console.log(props);
   const [deleted, setDeleted] = useState(false); // State to track deleted status
   const [offer, setOffer] = useState({});
 
@@ -25,12 +24,28 @@ const OfferCards = (props) => {
       credentials: "include",
     });
     const result = await response.json();
-    console.log(result);
+    
 
     if (result === 'deleted') {
       setDeleted(true); // Mark item as deleted, which will remove it from UI
     } else {
       console.log('Error deleting');
+    }
+  };
+
+  const handleClickPay = async () => {
+    const response = await fetch(`http://localhost:4000/api/buyer/pay`, {
+      method: "POST",
+      credentials: "include",
+      body:JSON.stringify({data:props.items})
+    });
+    const result = await response.json();
+    console.log(result);
+
+    if (result === 'done') {
+      ""
+    } else {
+      console.log('Error paying');
     }
   };
 
@@ -59,18 +74,23 @@ const OfferCards = (props) => {
           <p>Total Amount in Kg: {props.items.weight}</p>
           <p>Selling Price per Kg: {props.items.sp}</p>
           <p>Selling Price Offered per Kg: {offer.price}</p>
-          <p>Total : ₹ {props.items.weight * offer.price}</p>
           <p className="break-words whitespace-normal">Description: {props.items.description}</p>
+          <p className='text-2xl font-semibold m-1'>Total : ₹ {props.items.weight * offer.price}</p>
           
           {/* Conditional offer status */}
           {props.items.sold ? (
             props.items.buyerId === props.myid ? (
-              <p className='text-green-600'>Offer Accepted</p>
+            <><p className='text-xl text-center text-green-600'>Offer Accepted</p>
+              <div className="mt-4 flex justify-end">
+                <button className="btn bg-green-800 text-white" onClick={handleClickPay}>Proceed To Pay</button>
+              </div>
+            </>
+              
             ) : (
-              <p className='text-red-600'>Offer Rejected</p>
+              <p className='text-xl text-center text-red-600'>Offer Rejected</p>
             )
           ) : (
-            <p className='text-red-600'>Offer Pending</p>
+            <p className='text-xl text-center text-red-600 m-1'>Offer Pending</p>
           )}
 
           {/* Show the delete button only if the offer is pending */}

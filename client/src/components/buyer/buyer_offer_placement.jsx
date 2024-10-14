@@ -8,7 +8,7 @@ import './buyer_home_featured.css'
 export default function BuyerOfferPlacement() {
   const location = useLocation();
   const { item } = location.state; 
-  console.log(item)
+  
   const navigate = useNavigate();
   
   const initial = {  
@@ -48,7 +48,7 @@ export default function BuyerOfferPlacement() {
           <CardsDuringOffer items={item} />
           <div className="make_offer">
             <h1>Make Your Offer</h1>
-            <p>If the offer is accepted by the Farmer, you can proceed to the next step</p>
+            <p>As soon as Your Offer will be accepted by the Farmer you can proceed to the next step</p>
             <form id="offer_form" onSubmit={handleOfferSubmit}>
               <div className="price">
                 <label htmlFor="price">Price Per Kg</label>
@@ -59,6 +59,7 @@ export default function BuyerOfferPlacement() {
                   onChange={handleChange} // Handle input changes
                 />
               </div>
+              <h2 className="text-2xl font-semibold m-4">Total Price : {item.weight * offer.price}</h2>
               <button type="submit">Submit Offer</button> {/* Add a submit button */}
             </form>
           </div>

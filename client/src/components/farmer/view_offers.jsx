@@ -37,7 +37,7 @@ export default function ViewOffers() {
     <>
       <Navbar />
       <div className="whole_contents">
-        <div className="add_to_market">
+        <div className="add_to_market bg-green-800">
           {/* Market Item Card */}
           <MarketCards item={item} />
 

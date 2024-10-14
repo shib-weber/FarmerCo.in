@@ -24,8 +24,8 @@ const OfferCards = (props) => {
           {/* Card body section */}
           <div className="p-4">
             <h2 className="text-2xl font-semibold">{props.offer.Cname}</h2>
-            <p>Price Offered: {props.offer.price}</p>
-            <p>Total : {props.weight * props.offer.price} </p>
+            <p  className="text-xl" >Price Offered per Kg: {props.offer.price}</p>
+            <p  className="text-2xl font-semibold " >Total : {props.weight * props.offer.price} </p>
             {/* Action buttons */}
             <div className="mt-4 flex justify-center">
               <button className="btn bg-green-800 text-white" onClick={handleClick}>Confirm</button>
