@@ -1,7 +1,9 @@
 import farmerimg from '../../assets/farmer.webp';
 import { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 const OfferCards = (props) => {
+  const navigate = useNavigate()
   const [deleted, setDeleted] = useState(false); // State to track deleted status
   const [offer, setOffer] = useState({});
 
@@ -34,19 +36,7 @@ const OfferCards = (props) => {
   };
 
   const handleClickPay = async () => {
-    const response = await fetch(`http://localhost:4000/api/buyer/pay`, {
-      method: "POST",
-      credentials: "include",
-      body:JSON.stringify({data:props.items})
-    });
-    const result = await response.json();
-    console.log(result);
-
-    if (result === 'done') {
-      ""
-    } else {
-      console.log('Error paying');
-    }
+    navigate('/buyer_home/pay', { state: { item: props.items }})
   };
 
   // If the item is deleted, do not display it

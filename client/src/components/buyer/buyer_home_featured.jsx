@@ -1,15 +1,9 @@
 import Navbar from "./navbar"
 import './buyer_home_featured.css'
 import Card from "./cards"
-import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 const BuyerHomeFeatured = () => {
-    const navigate = useNavigate()
-
-    const handleAddClick = () => {
-        navigate('add_item')
-    }
 
     const [market, setMarket] = useState([])
 
