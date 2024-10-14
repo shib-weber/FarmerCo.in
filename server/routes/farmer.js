@@ -364,10 +364,14 @@ router.get('/viewOffers/:id',TokenVerify,async(req,res)=>{
 
 router.patch('/updatesold', TokenVerify, async (req, res) => {
     try {
-        const { offerId,Cid } = req.body; // Extract offerId from request body
+        const {Id, offerId,Cid } = req.body; // Extract offerId from request body
 
         // Update the farmer's product details in the database by setting 'sold' to true
         const updatedProduct = await MarketF.findByIdAndUpdate(offerId, { sold: true, buyerId:Cid }, {
+            new: true, // Return the updated document
+            runValidators: true, // Validate fields against the schema
+        });
+        const updatedProduct2 = await BuyerS.findByIdAndUpdate(Id, { accept: true, }, {
             new: true, // Return the updated document
             runValidators: true, // Validate fields against the schema
         });
